@@ -1,24 +1,19 @@
 # Peekmart Team Collaboration
 
-Use this guide to complete your assigned feature on its own branch. The `peekmart` folder is the root of the team's separate Git repository. Run every Git command from inside this folder, not from the `academy-courses-v3` repository root. Keep the shared data shapes in [README.md](./README.md) consistent across all feature files.
+Use this guide to complete your assigned feature on its own branch. Run Git commands from inside the cloned `peekmart` repository. Keep the shared data shapes in [README.md](./README.md) consistent across all feature files.
 
-The `peekmart` repository contains only this project. Its `.gitignore` excludes the Stitch export.
+The repository is already created on GitHub. Its `.gitignore` excludes the Stitch export and `group_project.md`.
 
-## Set up the Peekmart repository
+## Clone the repository
 
-Create an empty GitHub repository named `peekmart`. From PowerShell, initialize and push this project folder as its own repository:
+Each member clones the shared repository once. From PowerShell, run:
 
 ```powershell
-Set-Location "C:\Users\USER\Documents\Python Project\academy-courses-v3\Notebooks_Class\js\js_m1_to_m4\project\peekmart"
-git init -b main
-git add .
-git status --short
-git commit -m "Add Peekmart capstone project"
-git remote add origin https://github.com/<OWNER>/peekmart.git
-git push -u origin main
+git clone https://github.com/Usefulmech/peeqmart.git
+Set-Location peeqmart
 ```
 
-Replace `<OWNER>` with the GitHub account or organization that owns the new repository. Check `git status --short` before committing; every listed path must be inside `peekmart`. Do not run these commands from `academy-courses-v3`.
+Do not run `git init` or create another remote. After cloning, create your feature branch from the latest `main` branch as described below.
 
 ## Feature ownership and requirements
 
@@ -87,19 +82,35 @@ The integration files expect these module exports so each feature can be develop
 
 ## Branch instructions for each member
 
-Create your branch from the latest `main` branch the first time you start work. On later sessions, switch to your existing branch and pull its latest remote changes. Commit and push only your feature files, then open a pull request from your feature branch to `main`.
+Create your feature branch from the latest `main` the first time you start work. On later sessions, switch to your existing branch and pull its latest remote changes. Commit and push only your feature files, then open a pull request from your feature branch to `main`.
+
+When a teammate's pull request is merged into `main`, update your feature branch with the new `main`:
+
+```bash
+git fetch origin
+git switch main
+git pull --ff-only origin main
+git switch feature/<your-branch>
+git merge main
+git push
+```
 
 ### Member 1 — Products
 
-Create or switch to `feature/products`:
+Create `feature/products` the first time:
 
 ```bash
 git switch main
-git pull origin main
+git pull --ff-only origin main
 git switch -c feature/products
 ```
 
-For later sessions, use `git switch feature/products` and `git pull`.
+For later sessions:
+
+```bash
+git switch feature/products
+git pull --ff-only origin feature/products
+```
 
 Commit and push your work:
 
@@ -111,15 +122,20 @@ git push -u origin feature/products
 
 ### Member 2 — Cart
 
-Create or switch to `feature/cart`:
+Create `feature/cart` the first time:
 
 ```bash
 git switch main
-git pull origin main
+git pull --ff-only origin main
 git switch -c feature/cart
 ```
 
-For later sessions, use `git switch feature/cart` and `git pull`.
+For later sessions:
+
+```bash
+git switch feature/cart
+git pull --ff-only origin feature/cart
+```
 
 Commit and push your work:
 
@@ -131,15 +147,20 @@ git push -u origin feature/cart
 
 ### Member 3 — Checkout
 
-Create or switch to `feature/checkout`:
+Create `feature/checkout` the first time:
 
 ```bash
 git switch main
-git pull origin main
+git pull --ff-only origin main
 git switch -c feature/checkout
 ```
 
-For later sessions, use `git switch feature/checkout` and `git pull`.
+For later sessions:
+
+```bash
+git switch feature/checkout
+git pull --ff-only origin feature/checkout
+```
 
 Commit and push your work:
 
@@ -151,15 +172,20 @@ git push -u origin feature/checkout
 
 ### Member 4 — Integration and Summary
 
-Create or switch to `feature/integration-summary`:
+Create `feature/integration-summary` the first time:
 
 ```bash
 git switch main
-git pull origin main
+git pull --ff-only origin main
 git switch -c feature/integration-summary
 ```
 
-For later sessions, use `git switch feature/integration-summary` and `git pull`.
+For later sessions:
+
+```bash
+git switch feature/integration-summary
+git pull --ff-only origin feature/integration-summary
+```
 
 Commit and push your work:
 
