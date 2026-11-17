@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Browse products, manage your cart, and place an order.">
+    <title>Peeqmart | Curated Goods</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#products-view" aria-label="Peeqmart home">
+        <span class="brand-mark" aria-hidden="true">P</span>
+        <span>Peeqmart</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <button class="nav-button is-current" type="button" data-view="products" aria-controls="products-view" aria-current="page">Shop</button>
+        <button class="nav-button" type="button" data-view="cart" aria-controls="cart-view">
+          Cart <span class="cart-badge" id="cart-count" aria-label="0 items">0</span>
+        </button>
+      </nav>
+    </header>
+
+    <main id="main-content" class="page-shell">
+      <section id="products-view" class="view" data-view-panel="products" aria-labelledby="products-heading">
+        <div class="page-intro">
+          <p class="eyebrow">A considered collection · Peeqmart</p>
+          <h1 id="products-heading">Good things, found here.</h1>
+          <p>Thoughtful everyday finds, chosen to make the ordinary feel special.</p>
+        </div>
+
+        <div class="filter-bar" aria-label="Product filters">
+          <div class="field filter-search">
+            <label for="product-search">Search products</label>
+            <input id="product-search" name="search" type="search" placeholder="Search the collection" autocomplete="off">
+          </div>
+          <div class="field filter-category">
+            <label for="category-filter">Category</label>
+            <select id="category-filter" name="category">
+              <option value="">All categories</option>
+            </select>
+          </div>
+        </div>
+
+        <p id="products-status" class="status-message" role="status" aria-live="polite">Products will appear here when the catalog loads.</p>
+        <p id="products-error" class="error-banner" role="alert" hidden></p>
+        <div id="product-list" class="product-grid" aria-live="polite"></div>
+      </section>
+
+      <section id="cart-view" class="view" data-view-panel="cart" aria-labelledby="cart-heading" hidden>
+        <div class="page-intro">
+          <p class="eyebrow">Your picks</p>
+          <h1 id="cart-heading">Your cart</h1>
+          <p>Review your items before heading to checkout.</p>
+        </div>
+        <p id="cart-empty" class="empty-state">Your cart is empty. Find something you love in the shop.</p>
+        <div id="cart-items" class="cart-list"></div>
+        <div class="cart-footer">
+          <p class="total-row"><span>Subtotal</span><strong id="cart-total">$0.00</strong></p>
+          <button class="button button-primary" type="button" data-view="checkout" aria-controls="checkout-view">Continue to checkout</button>
+        </div>
+      </section>
+
+      <section id="checkout-view" class="view narrow-view" data-view-panel="checkout" aria-labelledby="checkout-heading" hidden>
+        <div class="page-intro">
+          <p class="eyebrow">Almost there</p>
+          <h1 id="checkout-heading">Delivery details</h1>
+          <p>Enter your details to complete your order.</p>
+        </div>
+        <form id="checkout-form" novalidate>
+          <div class="field">
+            <label for="customer-name">Full name</label>
+            <input id="customer-name" name="name" type="text" autocomplete="name" required aria-describedby="name-error">
+            <p class="field-error" id="name-error" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="customer-email">Email address</label>
+            <input id="customer-email" name="email" type="email" autocomplete="email" required aria-describedby="email-error">
+            <p class="field-error" id="email-error" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="customer-phone">Phone number</label>
+            <input id="customer-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" pattern="[0-9]{7,15}" required aria-describedby="phone-hint phone-error">
+            <p class="field-hint" id="phone-hint">Use 7–15 digits, numbers only.</p>
+            <p class="field-error" id="phone-error" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="customer-address">Delivery address</label>
+            <textarea id="customer-address" name="address" rows="3" autocomplete="street-address" required aria-describedby="address-error"></textarea>
+            <p class="field-error" id="address-error" aria-live="polite"></p>
+          </div>
+          <p id="checkout-error" class="error-banner" role="alert" hidden></p>
+          <button class="button button-primary button-wide" id="place-order-button" type="submit">Place order</button>
+        </form>
+      </section>
+
+      <section id="summary-view" class="view narrow-view" data-view-panel="summary" aria-labelledby="summary-heading" hidden>
+        <div class="page-intro">
+          <p class="eyebrow">Order confirmed</p>
+          <h1 id="summary-heading">Thank you for your order.</h1>
+          <p>Your order details are below.</p>
+        </div>
+        <div class="summary-card">
+          <p class="order-number">Order <strong id="order-id">—</strong></p>
+          <div id="customer-summary" class="customer-summary"></div>
+          <div id="order-items" class="order-list"></div>
+          <p class="total-row"><span>Total</span><strong id="order-total">$0.00</strong></p>
+        </div>
+        <button class="button button-primary button-wide" id="continue-shopping" type="button" data-view="products" aria-controls="products-view">Continue shopping</button>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Peeqmart <span aria-hidden="true">·</span> Curated goods for everyday living</p>
+    </footer>
+  </body>
+</html>
