@@ -19,7 +19,7 @@ Do not run `git init` or create another remote. After cloning, create your featu
 
 ### Member 1 — Products
 
-**Branch:** `feature/products`
+**Branch:** `feature/products`  
 **Files:** `products.js`, `products.json`
 
 - Fetch up to 20 products from `https://dummyjson.com/products?limit=20`.
@@ -31,7 +31,7 @@ Do not run `git init` or create another remote. After cloning, create your featu
 
 ### Member 2 — Cart
 
-**Branch:** `feature/cart`
+**Branch:** `feature/cart`  
 **File:** `cart.js`
 
 - Implement a `Cart` class with `addItem()`, `removeItem()`, `updateQuantity()`, `getTotal()`, and `getItemCount()`.
@@ -42,7 +42,7 @@ Do not run `git init` or create another remote. After cloning, create your featu
 
 ### Member 3 — Checkout
 
-**Branch:** `feature/checkout`
+**Branch:** `feature/checkout`  
 **File:** `checkout.js`
 
 - Provide name, email, phone, and delivery-address fields.
@@ -53,7 +53,7 @@ Do not run `git init` or create another remote. After cloning, create your featu
 
 ### Member 4 — Integration and Summary
 
-**Branch:** `feature/integration-summary`
+**Branch:** `feature/integration-summary`  
 **Files:** `main.js`, `summary.js`, `index.html`
 
 - Display the order ID, customer details, purchased items, and total on the summary screen.
