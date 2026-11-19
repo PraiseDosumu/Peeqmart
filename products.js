@@ -1,6 +1,5 @@
-import fallbackProducts from "./products.json";
-
 const API_URL = "https://dummyjson.com/products?limit=20";
+const FALLBACK_URL = "./products.json";
 
 let allProducts = [];
 let onAddToCartCallback = null;
@@ -25,30 +24,48 @@ function normalizeProduct(item) {
 }
 
 async function fetchProducts() {
-  const loadingEl = document.getElementById("products-loading");
+  const loadingEl = document.getElementById("products-status");
   const errorEl = document.getElementById("products-error");
 
-  if (loadingEl) loadingEl.style.display = "block";
-  if (errorEl) errorEl.style.display = "none";
+  if (loadingEl) {
+    loadingEl.textContent = "Loading products...";
+    loadingEl.hidden = false;
+  }
+  if (errorEl) errorEl.hidden = true;
 
   try {
-    const response = await fetch(API_URL);
+    try {
+      const response = await fetch(API_URL);
 
-    if (!response.ok) {
-      throw new Error(`Request failed: ${response.status}`);
-    }
+      if (!response.ok) {
+        throw new Error(`Request failed: ${response.status}`);
+      }
 
-    const data = await response.json();
-    return data.products.map(normalizeProduct);
-  } catch {
-    if (errorEl) {
-      errorEl.textContent =
-        "Could not load products from the server. Showing saved products instead.";
-      errorEl.style.display = "block";
+      const data = await response.json();
+      if (!Array.isArray(data.products)) {
+        throw new TypeError("The product service returned an invalid catalog.");
+      }
+      return data.products.map(normalizeProduct);
+    } catch {
+      const response = await fetch(FALLBACK_URL);
+      if (!response.ok) {
+        throw new Error(`Could not load saved products (${response.status}).`);
+      }
+
+      const products = await response.json();
+      if (!Array.isArray(products)) {
+        throw new TypeError("The saved product catalog is invalid.");
+      }
+
+      if (errorEl) {
+        errorEl.textContent =
+          "Could not load products from the server. Showing saved products instead.";
+        errorEl.hidden = false;
+      }
+      return products.map(normalizeProduct);
     }
-    return fallbackProducts.map(normalizeProduct);
   } finally {
-    if (loadingEl) loadingEl.style.display = "none";
+    if (loadingEl) loadingEl.hidden = true;
   }
 }
 
@@ -68,7 +85,7 @@ function filterProducts(products, searchText, selectedCategory) {
 }
 
 function renderProducts(products) {
-  const grid = document.getElementById("products-grid");
+  const grid = document.getElementById("product-list");
   if (!grid) return;
 
   if (products.length === 0) {
@@ -83,7 +100,7 @@ function renderProducts(products) {
         <img
           src="${product.thumbnail}"
           alt="${product.title}"
-          class="product-thumbnail"
+          class="product-image"
           loading="lazy"
         />
         <div class="product-info">
@@ -91,7 +108,7 @@ function renderProducts(products) {
           <p class="product-category">${product.category}</p>
           <p class="product-price">${formatNGN(product.price)}</p>
           <button
-            class="btn-add-to-cart"
+            class="button button-primary btn-add-to-cart"
             data-id="${product.id}"
             ${product.stock === 0 ? "disabled" : ""}
           >
